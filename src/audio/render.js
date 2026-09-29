@@ -27,20 +27,22 @@ export async function renderAudio(f0 = 0, f1 = TOTAL_FRAMES) {
   glue.threshold.value = -20; glue.ratio.value = 2.5; glue.attack.value = .02; glue.release.value = .3; glue.knee.value = 8;
   const lim = ctx.createDynamicsCompressor();
   lim.threshold.value = -3; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .08; lim.knee.value = 0;
-  const master = gainNode(ctx, 1.25);
-  glue.connect(lim); lim.connect(master); master.connect(ctx.destination);
+  const MASTER = .9;                                       // ≈ -16 LUFS integrated
+  const master = gainNode(ctx, MASTER);
+  const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 32; hp.Q.value = .7;
+  hp.connect(glue); glue.connect(lim); lim.connect(master); master.connect(ctx.destination);
 
   const verb = ctx.createConvolver(); verb.buffer = reverbIR(ctx); verb.normalize = true;
-  const verbRet = gainNode(ctx, .55); verb.connect(verbRet); verbRet.connect(glue);
+  const verbRet = gainNode(ctx, .55); verb.connect(verbRet); verbRet.connect(hp);
 
-  const duck = gainNode(ctx, 1); duck.connect(glue);
+  const duck = gainNode(ctx, 1); duck.connect(hp);
   const mk = (dest, v, send) => { const g = gainNode(ctx, v); g.connect(dest); if (send) { const s = gainNode(ctx, send); g.connect(s); s.connect(verb); } return g; };
   const bus = {
     pad: mk(duck, 1, .45),
     arp: mk(duck, .9, .35),
     drums: mk(duck, 1, .08),
   };
-  const sfxBus = mk(glue, 1, .22);
+  const sfxBus = mk(hp, 1, .22);
 
   scheduleMusic(ctx, bus, f0, f1);
 
@@ -57,8 +59,8 @@ export async function renderAudio(f0 = 0, f1 = TOTAL_FRAMES) {
   }
   // fades at the edges of a partial render
   master.gain.setValueAtTime(0, 0);
-  master.gain.linearRampToValueAtTime(1.25, .02);
-  master.gain.setValueAtTime(1.25, Math.max(.03, dur - .6));
+  master.gain.linearRampToValueAtTime(MASTER, .02);
+  master.gain.setValueAtTime(MASTER, Math.max(.03, dur - .6));
   master.gain.linearRampToValueAtTime(0, dur);
 
   return ctx.startRendering();

@@ -77,6 +77,26 @@ try {
     await mkdir(dirname(out), { recursive: true });
     await audio(out);
     console.log('audio', out);
+  } else if (+args.jobs > 1) {
+    // parallel: N child renders over contiguous chunks, stream-copied together, then audio for the whole range
+    const out = args.out || 'out/video.mp4', n = +args.jobs;
+    await mkdir(dirname(out), { recursive: true });
+    const parts = [], per = Math.ceil((f1 - f0) / n);
+    for (let i = 0; i < n; i++) {
+      const a = f0 + i * per, b = Math.min(f1, a + per);
+      if (a < b) parts.push({ a, b, file: out.replace(/\.mp4$/, `.part${i}.mp4`) });
+    }
+    await Promise.all(parts.map(p => run(process.execPath, [fileURLToPath(import.meta.url), '--from', String(p.a), '--to', String(p.b),
+      '--out', p.file, '--no-audio', '--crf', String(args.crf || 16), '--preset', args.preset || 'medium'])));
+    const list = out.replace(/\.mp4$/, '.parts.txt');
+    await writeFile(list, parts.map(p => `file '${resolve(p.file)}'`).join('\n'));
+    const silent = out.replace(/\.mp4$/, '.silent.mp4');
+    await run(FF, ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list, '-c', 'copy', silent]);
+    const wav = out.replace(/\.mp4$/, '.wav');
+    await audio(wav);
+    await run(FF, ['-y', '-loglevel', 'error', '-i', silent, '-i', wav, '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-shortest', out]);
+    await run('rm', [silent, list, ...parts.map(p => p.file)]);
+    console.log('wrote', out);
   } else {
     const out = args.out || 'out/video.mp4';
     await mkdir(dirname(out), { recursive: true });

@@ -42,8 +42,8 @@ node tools/render.mjs --stills 0,340,560 --dir out/stills
 # a range, with audio
 node tools/render.mjs --from 0 --to 1180 --out out/preview-opening.mp4
 
-# the whole film
-node tools/render.mjs --out out/ai-in-the-critical-path.mp4
+# the whole film (4 parallel chunk renders, then audio + mux)
+node tools/render.mjs --jobs 4 --out out/ai-in-the-critical-path.mp4
 ```
 The exporter uses `ffmpeg` from `$FFMPEG`, falling back to `imageio-ffmpeg` (`pip install imageio-ffmpeg`), then to `ffmpeg` on `PATH`.
 

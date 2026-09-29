@@ -70,8 +70,8 @@ export function scheduleMusic(ctx, bus, f0, f1) {
     // ---- sub ----
     const so = ctx.createOscillator(), sg = gainNode(ctx, 0);
     so.frequency.value = hz(chord.r) * 2;
-    sg.gain.setValueAtTime(0, t); sg.gain.linearRampToValueAtTime(.09 * intro, t + .6);
-    sg.gain.setValueAtTime(.09 * intro, end); sg.gain.linearRampToValueAtTime(0, end + .8);
+    sg.gain.setValueAtTime(0, t); sg.gain.linearRampToValueAtTime(.045 * intro, t + .6);
+    sg.gain.setValueAtTime(.045 * intro, end); sg.gain.linearRampToValueAtTime(0, end + .8);
     so.connect(sg); sg.connect(bus.pad); so.start(t); so.stop(end + .9);
 
     // ---- pulse arp (from S03; muted in the Turn and during S10's silent bar) ----
