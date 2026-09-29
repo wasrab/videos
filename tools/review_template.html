@@ -1,0 +1,171 @@
+<title>AI in the Critical Path — Storyboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap">
+<style>
+/* Layout: a screening-room review sheet — one reading column, the film strip and frames run wider. Single dark look, taken from the film itself. */
+:root{
+  --bg:#0B1020; --panel:#121A2C; --panel2:#18223A; --line:rgba(165,185,220,.13);
+  --ink:#EDF1F7; --ink2:#B2BCCB; --mut:#7D8AA0;
+  --acc:#6FA6FF; --acc2:#8FB9FF; --coral:#FF7F79; --gold:#D0AE62; --lav:#B79CFF;
+  --disp:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --sans:'Geist',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --mono:'Geist Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink2);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;padding-inline:20px;padding-block:0 80px}
+.wrap{max-width:1180px;margin:0 auto}
+.col{max-width:820px}
+a{color:var(--acc2)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+h1,h2,h3,h4{color:var(--ink);font-family:var(--disp);text-wrap:balance;margin:0}
+code{font:500 .86em var(--mono);color:var(--acc2);background:rgba(111,166,255,.08);padding:.08em .35em;border-radius:5px;overflow-wrap:anywhere}
+code.hex{display:inline-flex;align-items:center;gap:6px}
+code.hex i{width:.9em;height:.9em;border-radius:3px;display:inline-block;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+strong{color:var(--ink);font-weight:600}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.doc hr{display:none}
+em{color:var(--ink)}
+
+/* hero */
+header.hero{padding-block:56px 36px;display:grid;gap:18px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc2);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.pill{border:1px solid rgba(208,174,98,.6);color:var(--gold);border-radius:99px;padding:5px 10px}
+h1{font-weight:700;font-size:clamp(44px,7.5vw,92px);line-height:.98;letter-spacing:-.035em;color:#fff}
+.specs{display:flex;flex-wrap:wrap;gap:8px 22px;font:500 13px var(--mono);color:var(--mut);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.specs b{color:var(--ink);font-weight:500}
+.lede{font-size:18px;color:var(--ink2)}
+.lede p{margin:0 0 14px}
+
+/* film strip */
+.strip{margin-block:28px 8px}
+.strip-scroll{overflow-x:auto;padding-bottom:6px}
+.strip-inner{min-width:880px;position:relative}
+#curve{display:block;width:100%;height:84px}
+.band{display:flex;gap:2px;height:46px}
+.band a{flex-grow:var(--bars);flex-basis:0;min-width:0;display:flex;align-items:flex-end;padding:0 0 6px 5px;text-decoration:none;font:500 10.5px var(--mono);color:var(--mut);border-top:3px solid var(--c);background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 6px,transparent 6px 12px);border-radius:0 0 4px 4px;overflow:hidden;white-space:nowrap;transition:background .2s}
+.band a.built{background:color-mix(in srgb,var(--c) 22%,var(--panel));color:var(--ink)}
+.band a:hover,.band a:focus-visible,.band a.on{background:color-mix(in srgb,var(--c) 34%,var(--panel));color:#fff}
+.acts{display:flex;gap:2px;margin-top:8px}
+.acts span{flex-grow:var(--bars);flex-basis:0;min-width:0;font:500 10.5px var(--mono);letter-spacing:.14em;color:var(--c);overflow:hidden;white-space:nowrap}
+#readout{font:500 13px var(--mono);color:var(--ink2);min-height:1.6em;margin-top:10px;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font:500 12px var(--mono);color:var(--mut);margin-top:4px}
+.legend i{display:inline-block;width:14px;height:10px;margin-right:6px;vertical-align:-1px;border-radius:2px}
+
+/* preview */
+.preview{margin-block:48px 0;display:grid;gap:14px}
+.preview h2,.doc h2,.frames h2{font-size:clamp(26px,3.4vw,36px);font-weight:600;letter-spacing:-.022em}
+.kicker{font:500 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+video{width:100%;max-width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;box-shadow:0 40px 90px -40px rgba(0,0,0,.9),0 0 0 1px var(--line)}
+.note{font-size:15px;color:var(--mut)}
+
+/* frames */
+.frames{margin-top:56px;display:grid;gap:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+figure{margin:0;display:grid;gap:8px;min-width:0}
+figure img{width:100%;height:auto;aspect-ratio:16/9;border-radius:10px;display:block;box-shadow:0 0 0 1px var(--line)}
+figcaption{font-size:14px;line-height:1.45;color:var(--ink2)}
+figcaption b{font:500 12px var(--mono);color:var(--acc2);margin-right:6px;letter-spacing:.04em}
+
+/* nav */
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(11,16,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:56px;padding-block:10px;display:flex;flex-wrap:wrap;gap:4px 16px}
+nav.toc a{font:500 12.5px var(--mono);color:var(--mut);text-decoration:none;letter-spacing:.03em}
+nav.toc a:hover{color:var(--ink)}
+
+/* document sections */
+.doc{margin-top:56px;display:grid;gap:16px;scroll-margin-top:56px}
+.doc > div{min-width:0}
+.doc p,.doc li{max-width:78ch}
+.doc ul,.doc ol{padding-left:1.2em;margin:.4em 0}
+.doc li{margin:.25em 0}
+.doc h3{font-size:22px;font-weight:600;letter-spacing:-.015em;margin-top:18px}
+.doc h3.act{font:500 13px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:6px 0;font-variant-numeric:tabular-nums}
+th{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--acc2);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink2)}
+pre{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font:13px/1.5 var(--mono);color:var(--ink2)}
+pre code{background:none;padding:0;white-space:pre;color:inherit}
+.scene{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:12px;scroll-margin-top:60px}
+.scene .sh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.scene .sid{font:600 13px var(--mono);color:var(--acc2);letter-spacing:.06em}
+.scene h4{font-size:22px;font-weight:600;letter-spacing:-.015em}
+.scene .pri{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--coral);border:1px solid rgba(255,127,121,.45);border-radius:99px;padding:3px 8px}
+.scene .smeta{font:500 12.5px var(--mono);color:var(--mut);margin-top:4px;font-variant-numeric:tabular-nums}
+.scene ul{margin-top:10px}
+.scene p{margin:10px 0 0}
+.scene.built{border-color:rgba(111,166,255,.45);box-shadow:0 20px 50px -30px rgba(111,166,255,.45)}
+.scene .done{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(111,166,255,.5);border-radius:99px;padding:3px 8px}
+#s7{background:linear-gradient(180deg,rgba(208,174,98,.08),transparent 60%);border:1px solid rgba(208,174,98,.35);border-radius:16px;padding:22px 24px}
+#s7 h2{color:var(--gold)}
+@media (max-width:640px){ body{font-size:15px} .scene{padding:16px} header.hero{padding-block:36px 24px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow"><span>Video storyboard</span><span class="pill">v0.1 · for review</span></div>
+    <h1>AI in the Critical Path</h1>
+    <div class="specs"><span><b>5:41</b> runtime</span><span><b>25</b> scenes · <b>7</b> acts</span><span><b>128</b> bars at 90 BPM</span><span><b>1920×1080</b> · 30 fps</span><span>WebGL 2 + Canvas 2D · generative score</span></div>
+    <div class="lede col">{{LEDE}}</div>
+  </header>
+
+  <div class="strip" aria-label="Film timeline">
+    <div class="kicker">The whole film, bar by bar · solid = built, hatched = storyboard only</div>
+    <div class="strip-scroll"><div class="strip-inner">
+      <svg id="curve" viewBox="0 0 1000 84" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="band" id="band"></div>
+      <div class="acts" id="acts"></div>
+    </div></div>
+    <div id="readout">Hover or focus a scene to read it. The curve above is the tension that drives the grade and the music.</div>
+  </div>
+
+  <section class="preview">
+    <div class="kicker">First look</div>
+    <h2>The opening, rendered: S01 to S03</h2>
+    <video controls playsinline preload="metadata" poster="frames/f00560.jpg" src="preview.mp4"></video>
+    <p class="note col">39 seconds from the real renderer and synth: every frame was drawn by the WebGL pipeline and exported one by one, and the audio is the prototype score plus the scene's SFX cues. It ends with the first path-travel transition into a placeholder for S04. Turn the sound on.</p>
+  </section>
+
+  <section class="frames">
+    <div class="kicker">Keyframes</div>
+    <h2>Initial frames</h2>
+    <div class="grid">{{FRAMES}}</div>
+  </section>
+
+  <nav class="toc" aria-label="Sections">{{NAV}}</nav>
+  <div class="col-wide">{{SECTIONS}}</div>
+</div>
+
+<script>
+const TL = {{TIMELINE}};
+const COL = {hook:'#8FB9FF',stakes:'#6FA6FF',shift:'#B79CFF',crisis:'#FF7F79',turn:'#D0AE62',answer:'#6FA6FF',call:'#8FB9FF'};
+const fmt = f => { const s=f/TL.fps, m=Math.floor(s/60); return m+':'+(s-m*60).toFixed(1).padStart(4,'0'); };
+const band = document.getElementById('band'), acts = document.getElementById('acts'), ro = document.getElementById('readout');
+TL.scenes.forEach(s => {
+  const a = document.createElement('a');
+  a.href = '#' + s.id.toLowerCase(); a.textContent = s.id; a.className = s.built ? 'built' : '';
+  a.style.setProperty('--bars', s.bars); a.style.setProperty('--c', COL[s.act]);
+  const msg = `${s.id} · ${s.title} · ${s.bars} bars · ${fmt(s.start)}–${fmt(s.end)}${s.built ? ' · built' : ''}`;
+  a.title = msg; a.setAttribute('aria-label', msg);
+  const show = () => { ro.textContent = msg; [...band.children].forEach(x => x.classList.toggle('on', x === a)); };
+  a.addEventListener('mouseenter', show); a.addEventListener('focus', show);
+  band.appendChild(a);
+  const el = document.getElementById(s.id.toLowerCase());
+  if (el && s.built) { el.classList.add('built'); const t = document.createElement('span'); t.className='done'; t.textContent='built'; el.querySelector('.sh').appendChild(t); }
+});
+TL.acts.forEach(ac => {
+  const bars = TL.scenes.filter(s => s.act === ac.id).reduce((n, s) => n + s.bars, 0);
+  const sp = document.createElement('span'); sp.textContent = ac.label;
+  sp.style.setProperty('--bars', bars); sp.style.setProperty('--c', COL[ac.id]);
+  acts.appendChild(sp);
+});
+// tension curve, same x scale as the band (2px gaps are negligible)
+const svg = document.getElementById('curve'), n = TL.curve.length - 1;
+const pts = TL.curve.map((v, i) => `${(i / n * 1000).toFixed(1)},${(80 - v * 72).toFixed(1)}`);
+svg.innerHTML = `<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#6FA6FF"/><stop offset=".45" stop-color="#FF7F79"/><stop offset=".62" stop-color="#FF7F79"/><stop offset=".64" stop-color="#D0AE62"/><stop offset=".70" stop-color="#6FA6FF"/><stop offset="1" stop-color="#6FA6FF"/></linearGradient>
+<linearGradient id="f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6FA6FF" stop-opacity=".22"/><stop offset="1" stop-color="#6FA6FF" stop-opacity="0"/></linearGradient></defs>
+<polygon points="0,84 ${pts.join(' ')} 1000,84" fill="url(#f)"/>
+<polyline points="${pts.join(' ')}" fill="none" stroke="url(#g)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>`;
+</script>

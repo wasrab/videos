@@ -1,0 +1,10 @@
+{
+  "name": "ai-critical-path-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "preview": "npx http-server -c-1 -p 8080 . && echo open http://localhost:8080/src/index.html",
+    "stills": "node tools/render.mjs --stills",
+    "render": "node tools/render.mjs --out out/ai-in-the-critical-path.mp4"
+  }
+}

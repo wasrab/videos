@@ -1,0 +1,1098 @@
+<title>AI in the Critical Path — Storyboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap">
+<style>
+/* Layout: a screening-room review sheet — one reading column, the film strip and frames run wider. Single dark look, taken from the film itself. */
+:root{
+  --bg:#0B1020; --panel:#121A2C; --panel2:#18223A; --line:rgba(165,185,220,.13);
+  --ink:#EDF1F7; --ink2:#B2BCCB; --mut:#7D8AA0;
+  --acc:#6FA6FF; --acc2:#8FB9FF; --coral:#FF7F79; --gold:#D0AE62; --lav:#B79CFF;
+  --disp:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --sans:'Geist',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  --mono:'Geist Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink2);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;padding-inline:20px;padding-block:0 80px}
+.wrap{max-width:1180px;margin:0 auto}
+.col{max-width:820px}
+a{color:var(--acc2)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+h1,h2,h3,h4{color:var(--ink);font-family:var(--disp);text-wrap:balance;margin:0}
+code{font:500 .86em var(--mono);color:var(--acc2);background:rgba(111,166,255,.08);padding:.08em .35em;border-radius:5px;overflow-wrap:anywhere}
+code.hex{display:inline-flex;align-items:center;gap:6px}
+code.hex i{width:.9em;height:.9em;border-radius:3px;display:inline-block;box-shadow:0 0 0 1px rgba(255,255,255,.15)}
+strong{color:var(--ink);font-weight:600}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.doc hr{display:none}
+em{color:var(--ink)}
+
+/* hero */
+header.hero{padding-block:56px 36px;display:grid;gap:18px}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc2);display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center}
+.pill{border:1px solid rgba(208,174,98,.6);color:var(--gold);border-radius:99px;padding:5px 10px}
+h1{font-weight:700;font-size:clamp(44px,7.5vw,92px);line-height:.98;letter-spacing:-.035em;color:#fff}
+.specs{display:flex;flex-wrap:wrap;gap:8px 22px;font:500 13px var(--mono);color:var(--mut);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.specs b{color:var(--ink);font-weight:500}
+.lede{font-size:18px;color:var(--ink2)}
+.lede p{margin:0 0 14px}
+
+/* film strip */
+.strip{margin-block:28px 8px}
+.strip-scroll{overflow-x:auto;padding-bottom:6px}
+.strip-inner{min-width:880px;position:relative}
+#curve{display:block;width:100%;height:84px}
+.band{display:flex;gap:2px;height:46px}
+.band a{flex-grow:var(--bars);flex-basis:0;min-width:0;display:flex;align-items:flex-end;padding:0 0 6px 5px;text-decoration:none;font:500 10.5px var(--mono);color:var(--mut);border-top:3px solid var(--c);background:repeating-linear-gradient(135deg,rgba(255,255,255,.035) 0 6px,transparent 6px 12px);border-radius:0 0 4px 4px;overflow:hidden;white-space:nowrap;transition:background .2s}
+.band a.built{background:color-mix(in srgb,var(--c) 22%,var(--panel));color:var(--ink)}
+.band a:hover,.band a:focus-visible,.band a.on{background:color-mix(in srgb,var(--c) 34%,var(--panel));color:#fff}
+.acts{display:flex;gap:2px;margin-top:8px}
+.acts span{flex-grow:var(--bars);flex-basis:0;min-width:0;font:500 10.5px var(--mono);letter-spacing:.14em;color:var(--c);overflow:hidden;white-space:nowrap}
+#readout{font:500 13px var(--mono);color:var(--ink2);min-height:1.6em;margin-top:10px;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font:500 12px var(--mono);color:var(--mut);margin-top:4px}
+.legend i{display:inline-block;width:14px;height:10px;margin-right:6px;vertical-align:-1px;border-radius:2px}
+
+/* preview */
+.preview{margin-block:48px 0;display:grid;gap:14px}
+.preview h2,.doc h2,.frames h2{font-size:clamp(26px,3.4vw,36px);font-weight:600;letter-spacing:-.022em}
+.kicker{font:500 12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+video{width:100%;max-width:100%;aspect-ratio:16/9;background:#000;border-radius:14px;box-shadow:0 40px 90px -40px rgba(0,0,0,.9),0 0 0 1px var(--line)}
+.note{font-size:15px;color:var(--mut)}
+
+/* frames */
+.frames{margin-top:56px;display:grid;gap:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+figure{margin:0;display:grid;gap:8px;min-width:0}
+figure img{width:100%;height:auto;aspect-ratio:16/9;border-radius:10px;display:block;box-shadow:0 0 0 1px var(--line)}
+figcaption{font-size:14px;line-height:1.45;color:var(--ink2)}
+figcaption b{font:500 12px var(--mono);color:var(--acc2);margin-right:6px;letter-spacing:.04em}
+
+/* nav */
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(11,16,32,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:56px;padding-block:10px;display:flex;flex-wrap:wrap;gap:4px 16px}
+nav.toc a{font:500 12.5px var(--mono);color:var(--mut);text-decoration:none;letter-spacing:.03em}
+nav.toc a:hover{color:var(--ink)}
+
+/* document sections */
+.doc{margin-top:56px;display:grid;gap:16px;scroll-margin-top:56px}
+.doc > div{min-width:0}
+.doc p,.doc li{max-width:78ch}
+.doc ul,.doc ol{padding-left:1.2em;margin:.4em 0}
+.doc li{margin:.25em 0}
+.doc h3{font-size:22px;font-weight:600;letter-spacing:-.015em;margin-top:18px}
+.doc h3.act{font:500 13px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:6px 0;font-variant-numeric:tabular-nums}
+th{font:500 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--acc2);text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;color:var(--ink2)}
+pre{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font:13px/1.5 var(--mono);color:var(--ink2)}
+pre code{background:none;padding:0;white-space:pre;color:inherit}
+.scene{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:12px;scroll-margin-top:60px}
+.scene .sh{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.scene .sid{font:600 13px var(--mono);color:var(--acc2);letter-spacing:.06em}
+.scene h4{font-size:22px;font-weight:600;letter-spacing:-.015em}
+.scene .pri{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--coral);border:1px solid rgba(255,127,121,.45);border-radius:99px;padding:3px 8px}
+.scene .smeta{font:500 12.5px var(--mono);color:var(--mut);margin-top:4px;font-variant-numeric:tabular-nums}
+.scene ul{margin-top:10px}
+.scene p{margin:10px 0 0}
+.scene.built{border-color:rgba(111,166,255,.45);box-shadow:0 20px 50px -30px rgba(111,166,255,.45)}
+.scene .done{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(111,166,255,.5);border-radius:99px;padding:3px 8px}
+#s7{background:linear-gradient(180deg,rgba(208,174,98,.08),transparent 60%);border:1px solid rgba(208,174,98,.35);border-radius:16px;padding:22px 24px}
+#s7 h2{color:var(--gold)}
+@media (max-width:640px){ body{font-size:15px} .scene{padding:16px} header.hero{padding-block:36px 24px} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="eyebrow"><span>Video storyboard</span><span class="pill">v0.1 · for review</span></div>
+    <h1>AI in the Critical Path</h1>
+    <div class="specs"><span><b>5:41</b> runtime</span><span><b>25</b> scenes · <b>7</b> acts</span><span><b>128</b> bars at 90 BPM</span><span><b>1920×1080</b> · 30 fps</span><span>WebGL 2 + Canvas 2D · generative score</span></div>
+    <div class="lede col"><div><p>The deck argues one thing: <strong>AI has moved from suggesting to acting inside critical processes. When it acts wrongly, nothing in continuity practice tells you how to get back.</strong> The video turns the deck's own motif, the <em>critical path</em> (the seven-node line on the cover, with the red node in the middle), into a literal spine. The whole film lives on one line that runs through seven nodes: <strong>Hook → Stakes → Shift → Crisis → Turn → Answer → Call to act</strong>. The <em>agent</em> (the hexagon glyph from the deck's cast) travels along that line. At the Crisis node the path <strong>breaks</strong>. The rest of the film is about <strong>rebuilding the path</strong>, and in S21 the six recovery steps literally become the new segment that bridges the gap. The ending returns to the opening image: an agent, a person, and a thin line between them that says <em>acts in your name</em>.</p>
+<p>The deck is built for a presenter. The video has <strong>no presenter and no voice-over</strong>, so on-screen text carries the argument, and all text is timed for reading (see §6). Scene lengths are snapped to musical bars, so a voice-over can be added later without re-timing.</p>
+<hr /></div></div>
+  </header>
+
+  <div class="strip" aria-label="Film timeline">
+    <div class="kicker">The whole film, bar by bar · solid = built, hatched = storyboard only</div>
+    <div class="strip-scroll"><div class="strip-inner">
+      <svg id="curve" viewBox="0 0 1000 84" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="band" id="band"></div>
+      <div class="acts" id="acts"></div>
+    </div></div>
+    <div id="readout">Hover or focus a scene to read it. The curve above is the tension that drives the grade and the music.</div>
+  </div>
+
+  <section class="preview">
+    <div class="kicker">First look</div>
+    <h2>The opening, rendered: S01 to S03</h2>
+    <video controls playsinline preload="metadata" poster="frames/f00560.jpg" src="preview.mp4"></video>
+    <p class="note col">39 seconds from the real renderer and synth: every frame was drawn by the WebGL pipeline and exported one by one, and the audio is the prototype score plus the scene's SFX cues. It ends with the first path-travel transition into a placeholder for S04. Turn the sound on.</p>
+  </section>
+
+  <section class="frames">
+    <div class="kicker">Keyframes</div>
+    <h2>Initial frames</h2>
+    <div class="grid"><figure><img src="frames/f00060.jpg" alt="Black. A single point breathes." loading="lazy" width="1280" height="720"><figcaption><b>S01 @3</b> Black. A single point breathes.</figcaption></figure><figure><img src="frames/f00150.jpg" alt="The point draws itself into the agent and receives a task." loading="lazy" width="1280" height="720"><figcaption><b>S01 @7.5</b> The point draws itself into the agent and receives a task.</figcaption></figure><figure><img src="frames/f00235.jpg" alt="It acts: decisions stream out, the counter climbs to 3,907." loading="lazy" width="1280" height="720"><figcaption><b>S01 @11.7</b> It acts: decisions stream out, the counter climbs to 3,907.</figcaption></figure><figure><img src="frames/f00340.jpg" alt="Freeze. &quot;It decided on its own.&quot; Acts in your name." loading="lazy" width="1280" height="720"><figcaption><b>S01 @17</b> Freeze. &quot;It decided on its own.&quot; Acts in your name.</figcaption></figure><figure><img src="frames/f00395.jpg" alt="Morph: the line becomes the critical path." loading="lazy" width="1280" height="720"><figcaption><b>S01 @19.7</b> Morph: the line becomes the critical path.</figcaption></figure><figure><img src="frames/f00560.jpg" alt="Title. The coral Crisis node pulses." loading="lazy" width="1280" height="720"><figcaption><b>S02 @8</b> Title. The coral Crisis node pulses.</figcaption></figure><figure><img src="frames/f00860.jpg" alt="The storyline: the film&#x27;s real tension curve." loading="lazy" width="1280" height="720"><figcaption><b>S03 @7</b> The storyline: the film&#x27;s real tension curve.</figcaption></figure><figure><img src="frames/f01060.jpg" alt="Four questions. The fourth has no answer yet." loading="lazy" width="1280" height="720"><figcaption><b>S03 @17</b> Four questions. The fourth has no answer yet.</figcaption></figure><figure><img src="frames/f01110.jpg" alt="T1 path travel to the Stakes node." loading="lazy" width="1280" height="720"><figcaption><b>S03 → S04</b> T1 path travel to the Stakes node.</figcaption></figure></div>
+  </section>
+
+  <nav class="toc" aria-label="Sections"><a href="#s1">Design decisions</a><a href="#s2">Audio design (generative, rendered offline)</a><a href="#s3">Scene-by-scene</a><a href="#s4">Timing summary</a><a href="#s5">Short cut (~4:40), if wanted</a><a href="#s6">Legibility rules</a><a href="#s7">Content and fact-check flags (please confirm before the full render)</a><a href="#s8">Technical pipeline (how this storyboard becomes the video)</a></nav>
+  <div class="col-wide"><section id="s1" class="doc "><h2>Design decisions</h2><h3 class="act">1.1 Format</h3><div>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Value</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resolution</td>
+<td>1920×1080 (16:9)</td>
+<td>Standard delivery. The design grid is the deck's 1280×720 scaled ×1.5, so every deck measurement carries over directly.</td>
+</tr>
+<tr>
+<td>Frame rate</td>
+<td>30 fps</td>
+<td>Motion is typographic and graphic, so 60 fps gains little and doubles render time. The engine is fps-agnostic, so a 60 fps render is one constant.</td>
+</tr>
+<tr>
+<td>Tempo</td>
+<td>90 BPM, 4/4</td>
+<td>At 30 fps one beat is <strong>exactly 20 frames</strong> and one bar is 80 frames (2.667 s). Every scene boundary and every animation cue lands on a whole frame on the musical grid.</td>
+</tr>
+<tr>
+<td>Runtime</td>
+<td>128 bars ≈ <strong>5:41</strong> (full cut)</td>
+<td>See §5 for a ~4:40 short cut.</td>
+</tr>
+<tr>
+<td>Safe area</td>
+<td>96 px sides, 72 px top/bottom (title-safe 5%)</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+</div><h3 class="act">1.2 Palette (taken from the deck, unchanged)</h3><div>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Token</th>
+<th>Hex</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stage</code></td>
+<td><code class="hex"><i style="background:#05080E"></i>#05080E</code></td>
+<td>Letterbox and deepest black</td>
+</tr>
+<tr>
+<td><code>bg</code></td>
+<td><code class="hex"><i style="background:#101729"></i>#101729</code></td>
+<td>Scene background</td>
+</tr>
+<tr>
+<td><code>s1</code> / <code>s2</code></td>
+<td><code class="hex"><i style="background:#161F33"></i>#161F33</code> / <code class="hex"><i style="background:#1B2742"></i>#1B2742</code></td>
+<td>Cards / tinted cards</td>
+</tr>
+<tr>
+<td><code>acc</code> / <code>acc2</code></td>
+<td><code class="hex"><i style="background:#6FA6FF"></i>#6FA6FF</code> / <code class="hex"><i style="background:#8FB9FF"></i>#8FB9FF</code></td>
+<td>The agent, structure, "working as designed"</td>
+</tr>
+<tr>
+<td><code>al</code> / <code>al2</code> / <code>alTx</code></td>
+<td><code class="hex"><i style="background:#FF7F79"></i>#FF7F79</code> / <code class="hex"><i style="background:#2F1B26"></i>#2F1B26</code> / <code class="hex"><i style="background:#FFC4C0"></i>#FFC4C0</code></td>
+<td><strong>Warm = wrong.</strong> Rogue agent, failures, the gap</td>
+</tr>
+<tr>
+<td><code>gold</code></td>
+<td><code class="hex"><i style="background:#D0AE62"></i>#D0AE62</code></td>
+<td><strong>The turn.</strong> Used only for the Turn, the open fourth question, and the call to act</td>
+</tr>
+<tr>
+<td><code>lav</code></td>
+<td><code class="hex"><i style="background:#B79CFF"></i>#B79CFF</code></td>
+<td><strong>You</strong> (the accountable person)</td>
+</tr>
+<tr>
+<td><code>tx</code> / <code>tx2</code> / <code>mut</code></td>
+<td><code class="hex"><i style="background:#EDF1F7"></i>#EDF1F7</code> / <code class="hex"><i style="background:#B2BCCB"></i>#B2BCCB</code> / <code class="hex"><i style="background:#7D8AA0"></i>#7D8AA0</code></td>
+<td>Text hierarchy</td>
+</tr>
+</tbody>
+</table></div>
+<p>Colour is semantic and never decorative: blue means <em>system behaving</em>, coral means <em>system acting wrongly or consequence</em>, gold means <em>where we turn</em>, lavender means <em>you</em>.</p>
+</div><h3 class="act">1.3 Type</h3><div>
+<ul>
+<li><strong>Display:</strong> Bricolage Grotesque 560–700, tracking −2.2% to −3.5% (the deck's headline face).</li>
+<li><strong>Body:</strong> Geist 400–500.</li>
+<li><strong>Labels / eyebrows / data:</strong> Geist Mono 500, uppercase, tracking +14–18%.</li>
+<li>Scale at 1080p: Hero 156 px · Title 63 px · Statement 34 px · Body 25 px · Label 17 px.</li>
+<li>Fonts are vendored (<code>assets/fonts/</code>, SIL OFL) so renders are offline and deterministic.</li>
+</ul>
+</div><h3 class="act">1.4 Cast (glyphs from the deck, redrawn as vector paths)</h3><div>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Actor</th>
+<th>Glyph</th>
+<th>Colour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The agent</td>
+<td>Hexagon with a nucleus and three spokes</td>
+<td>blue; <strong>coral when rogue</strong></td>
+</tr>
+<tr>
+<td>The person in the loop</td>
+<td>Head and shoulders</td>
+<td><code class="hex"><i style="background:#DCE4EF"></i>#DCE4EF</code></td>
+</tr>
+<tr>
+<td>You</td>
+<td>Person with a shield</td>
+<td>lavender</td>
+</tr>
+<tr>
+<td>Board and regulator</td>
+<td>Portico / columns</td>
+<td>gold</td>
+</tr>
+<tr>
+<td>The supplier</td>
+<td>Isometric box</td>
+<td><code class="hex"><i style="background:#9DAAC0"></i>#9DAAC0</code></td>
+</tr>
+</tbody>
+</table></div>
+</div><h3 class="act">1.5 The world</h3><div>
+<ul>
+<li><strong>Background:</strong> <code>bg</code>, a dot grid at 42 px pitch (6% blue) that drifts slowly (6 px/s parallax), and two soft radial glows: blue at the top right and coral at the bottom left. Their strength follows the <strong>tension curve</strong> (§1.7).</li>
+<li><strong>Persistent HUD</strong> (from Act I onward):</li>
+<li>Top left: mono eyebrow, e.g. <code>PART 2 · WHAT HAS CHANGED</code>.</li>
+<li>Top right: the deck's four part-pills, with the current part filled.</li>
+<li>Bottom: a 2 px <em>mini critical path</em> with seven nodes. The current act's node glows, and a playhead dot travels along it. It breaks at Crisis and is mended in S21.</li>
+<li><strong>Camera:</strong> a virtual 2D camera with pan and zoom. Each scene gets a slow push-in of 1.5% over its length. Act transitions are real camera moves along the big path (T1).</li>
+</ul>
+</div><h3 class="act">1.6 Motion language</h3><div>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Spec</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>rise</code></td>
+<td>opacity 0→1, y +24→0 px, 0.8 s, ease <code>cubic-bezier(.16,.84,.24,1)</code> (the deck's ease)</td>
+<td>default entrance</td>
+</tr>
+<tr>
+<td><code>fromL</code> / <code>fromR</code></td>
+<td>x ∓84/96 px → 0, same ease</td>
+<td>panels that arrive "beside" something</td>
+</tr>
+<tr>
+<td><code>pop</code></td>
+<td>scale .55 → 1.08 → 1, 0.6 s</td>
+<td>numbers, nodes, avatars</td>
+</tr>
+<tr>
+<td><code>draw</code></td>
+<td>stroke-dash 0 → 1, 0.9 s, ease-in-out</td>
+<td>arrows, paths, rails</td>
+</tr>
+<tr>
+<td><code>grow</code></td>
+<td>scaleX 0 → 1 from the left edge, 1.2 s</td>
+<td>bars, meters</td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>number tween, ease-out quart, tick SFX on each integer (capped at 12/s)</td>
+<td>stats</td>
+</tr>
+<tr>
+<td><code>type</code></td>
+<td>mono text typed at 28 chars/s with a caret</td>
+<td>system/agent "voice"</td>
+</tr>
+<tr>
+<td><code>dim</code></td>
+<td>fade to 36% plus desaturation, 0.9 s</td>
+<td>"already answered"</td>
+</tr>
+<tr>
+<td><code>dissolve</code></td>
+<td>shape breaks into 60–120 seeded particles that drift up and fade over 1.2 s</td>
+<td>the person leaving the loop</td>
+</tr>
+<tr>
+<td>Stagger</td>
+<td>3 beats (≈ 0.67 s) between sibling items unless noted</td>
+<td></td>
+</tr>
+<tr>
+<td>Exit</td>
+<td>the outgoing scene's content falls 12 px and fades over the last half-beat</td>
+<td>T2</td>
+</tr>
+<tr>
+<td>Hold</td>
+<td>every scene holds its finished state for <strong>at least 1 bar</strong> before exiting</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+</div><h3 class="act">1.7 Tension curve (drives grade, glows, music density)</h3><div>
+<pre><code>tension 1.0 |                                   ▲ S15 (the gap)
+            |                             ____/ |
+        0.7 |                       _____/      |
+        0.5 |              ________/            |      ______
+        0.3 |      _______/                     |_____/      \____
+        0.1 |_____/                           TURN              END
+            Hook   Stakes   Shift     Crisis        Answer  Call
+</code></pre>
+<p>Keyframes (scene start → value): S01 .10 · S04 .25 · S08 .45 · S11 .65 · S12 .80 · S15 1.0 · S16 .15 · S17 .30 · S21 .40 · S22 .25 · S25 .05.</p>
+</div><h3 class="act">1.8 Post-processing (the WebGL 2 pass)</h3><div>
+<p>The scene is drawn with Canvas 2D into an offscreen canvas and uploaded each frame as a texture into a WebGL 2 pipeline:</p>
+<ol>
+<li><strong>Bloom:</strong> bright-pass (threshold .72), then a separable 9-tap Gaussian at half resolution, ×2 iterations, added back. Intensity is <code>0.30 + 0.35 × tension</code>.</li>
+<li><strong>Grade:</strong> a slight lift and warm tint toward <code>al2</code> in the shadows as tension rises, and a gold wash pulse at the Turn.</li>
+<li><strong>Chromatic aberration:</strong> 0 px normally, up to 1.5 px at peak tension, and 6 px during glitch events.</li>
+<li><strong>Glitch</strong> (event-driven, Crisis act only): horizontal block displacement plus RGB split for 3–6 frames.</li>
+<li><strong>Vignette</strong> 0.35 and <strong>film grain</strong> 2.5% (seeded per frame, so it is deterministic).</li>
+</ol>
+</div><h3 class="act">1.9 Transition vocabulary</h3><div>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Name</th>
+<th>What happens</th>
+<th>Sound</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>T1</strong></td>
+<td>Path travel</td>
+<td>The camera pulls back (zoom 1 → 0.55) to reveal the big critical path, glides to the next act's node and pushes in. The outgoing scene shrinks into its node. <strong>1 bar.</strong></td>
+<td>whoosh + chord change on the downbeat</td>
+</tr>
+<tr>
+<td><strong>T2</strong></td>
+<td>Beat cut</td>
+<td>The outgoing content exits (fall and fade, staggered), and the new build starts on the next downbeat. <strong>½ beat.</strong></td>
+<td>soft tick</td>
+</tr>
+<tr>
+<td><strong>T3</strong></td>
+<td>Morph</td>
+<td>A shared element survives the cut and moves or rescales to its new place (the agent hex, the four-bar map, the person avatar).</td>
+<td>"draw" swell</td>
+</tr>
+<tr>
+<td><strong>T4</strong></td>
+<td>Glitch cut</td>
+<td>Crisis only: 4 frames of shader glitch, then a hard cut.</td>
+<td>glitch burst</td>
+</tr>
+<tr>
+<td><strong>T5</strong></td>
+<td>Blackout</td>
+<td>The Turn: everything fades to near-black and the music drops out for one bar.</td>
+<td>silence, then a bell</td>
+</tr>
+</tbody>
+</table></div>
+<hr /></div></section><section id="s2" class="doc "><h2>Audio design (generative, rendered offline)</h2><div><p>All audio is synthesized from code (Web Audio <code>OfflineAudioContext</code>, seeded RNG). No samples are used. The same <code>timeline.js</code> that drives the picture also drives the music: every visual cue can carry an <code>sfx</code> tag, and the music reads the tension curve and the scene/act list. Picture and sound therefore cannot drift out of sync, and changing a scene length automatically re-times the score.</p>
+</div><h3 class="act">2.1 Music</h3><div>
+<ul>
+<li><strong>Key centre:</strong> D minor, resolving to <strong>D major</strong> on the last chord (a Picardy third: the story ends answered).</li>
+<li><strong>Tempo:</strong> 90 BPM throughout. The feeling of speed changes through density, not tempo.</li>
+<li><strong>Stems:</strong>
+  1. <strong>Pad:</strong> three detuned saws plus a sine sub, through a low-pass filter whose cutoff follows tension (600 Hz → 3.2 kHz), and a long algorithmic reverb.
+  2. <strong>Pulse arp:</strong> a soft FM pluck playing 8ths from the current chord, with the rhythm drawn from Euclidean patterns (E(5,8) → E(7,16) as tension rises).
+  3. <strong>Heartbeat:</strong> a sub thump on beats 1 and 2-and, <strong>Crisis act only</strong>. Its tempo stays locked while the tone darkens.
+  4. <strong>Clock:</strong> filtered-noise ticks on 16ths, used in S14 (Australia, "84 days").
+  5. <strong>Motif bells:</strong> a 4-note motif, <strong>D – F – A – G</strong>, heard at the title, inverted at the Turn, and finally resolved <strong>D – F♯ – A – D</strong> at the end.</li>
+<li><strong>The musical joke that carries the idea (Act I vs Act II):</strong> in Acts 0–I the arpeggio pattern is generated once and <strong>repeats identically every bar</strong>, like a deterministic system. From S08 (<em>"the same question gets the same answer"</em>) onward, the arpeggio is <strong>re-seeded every bar</strong>, so the same chord never gets the same melody twice. In Act IV (<em>Answer</em>) a fixed pattern returns, now slightly richer: control restored.</li>
+</ul>
+</div><h3 class="act">2.2 Harmony by act (one chord per bar unless noted)</h3><div>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Act</th>
+<th>Progression</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hook (S01–S03)</td>
+<td>Dm(add9) · B♭maj7</td>
+<td>suspended, curious</td>
+</tr>
+<tr>
+<td>Stakes (S04–S07)</td>
+<td>Dm · B♭ · F · C</td>
+<td>steady, informative</td>
+</tr>
+<tr>
+<td>Shift (S08–S10)</td>
+<td>Dm · B♭ · Gm · A</td>
+<td>the V chord adds pull</td>
+</tr>
+<tr>
+<td>Crisis (S11–S15)</td>
+<td>Dm · E♭ · Dm · C♯dim</td>
+<td>Phrygian ♭II, unstable</td>
+</tr>
+<tr>
+<td>Turn (S16)</td>
+<td>1 bar silence → Fmaj7(9)</td>
+<td>air, then light</td>
+</tr>
+<tr>
+<td>Answer (S17–S21)</td>
+<td>B♭ · F · C · Dm</td>
+<td>rebuilding</td>
+</tr>
+<tr>
+<td>Call to act (S22–S25)</td>
+<td>B♭ · C · Dm · D (major, final)</td>
+<td>resolve</td>
+</tr>
+</tbody>
+</table></div>
+</div><h3 class="act">2.3 SFX palette (all synthesized)</h3><div>
+<div class="tablewrap"><table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Recipe</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tick</code></td>
+<td>2 ms click through a 4 kHz band-pass, −28 dB</td>
+<td>text lines and small items landing</td>
+</tr>
+<tr>
+<td><code>pop</code></td>
+<td>sine 880 → 440 Hz in 90 ms, tiny noise transient</td>
+<td>cards, numbers, nodes</td>
+</tr>
+<tr>
+<td><code>draw</code></td>
+<td>sine glide 300 → 600 Hz under a soft noise bed, length = the draw</td>
+<td>lines and arrows drawing</td>
+</tr>
+<tr>
+<td><code>whoosh</code></td>
+<td>pink noise, band-pass swept 300 Hz → 4 kHz → 800 Hz, stereo pan L→R</td>
+<td>T1 camera moves</td>
+</tr>
+<tr>
+<td><code>count</code></td>
+<td>pitched ticks rising a semitone every 4th tick</td>
+<td>counters</td>
+</tr>
+<tr>
+<td><code>same</code></td>
+<td>a clean marimba-like tone, identical pitch each time</td>
+<td>S08 left side: A, A, A</td>
+</tr>
+<tr>
+<td><code>differ</code></td>
+<td>the same tone at a different pitch each time, plus a bit-crush tail</td>
+<td>S08 right side: A, B, C</td>
+</tr>
+<tr>
+<td><code>dissolve</code></td>
+<td>reversed shimmer (granular noise plus a high sine cluster), fading</td>
+<td>the person disappears</td>
+</tr>
+<tr>
+<td><code>glitch</code></td>
+<td>a 60–120 ms bit-crushed square burst with a sample-rate crush</td>
+<td>Crisis cuts, rogue agent</td>
+</tr>
+<tr>
+<td><code>alarm</code></td>
+<td>a muted two-tone (A5/F5) ×2</td>
+<td>S10 normal outage alarm</td>
+</tr>
+<tr>
+<td><code>impact</code></td>
+<td>sine 60 → 30 Hz plus a noise burst plus reverb</td>
+<td>July reveal, "84 days", the path breaking</td>
+</tr>
+<tr>
+<td><code>riser</code></td>
+<td>noise plus a sine rising two octaves over N bars</td>
+<td>into Crisis, into the gap</td>
+</tr>
+<tr>
+<td><code>bell</code></td>
+<td>3-operator FM bell, gold</td>
+<td>the Turn, the "12%", the path mending</td>
+</tr>
+<tr>
+<td><code>heart</code></td>
+<td>shared with the heartbeat stem</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Mix:</strong> music bus −18 LUFS-ish, SFX sit 4–6 dB over it, and music is side-chain ducked 3 dB under SFX. The master goes through a gentle compressor and a −1 dBTP limiter. Output is 48 kHz stereo, muxed to AAC 192 kbps.</p>
+<hr /></div></section><section id="s3" class="doc scenes"><h2>Scene-by-scene</h2><div><p>Timing notation: <code>@b</code> is the <strong>beat</strong> within the scene (1 beat = 20 frames = 0.667 s). <code>bars</code> is the scene length. <code>→ sfx</code> marks a sound cue.</p>
+<hr />
+</div><h3 class="act">ACT 0 — HOOK · tension 0.10</h3><div>
+</div><div class="scene" id="s01"><div class="sh"><span class="sid">S01</span><h4>Cold open</h4></div><div class="smeta">5 bars (0:00.0 – 0:13.3) · deck slides 1, cast</div>
+<p><em>Purpose: state the whole film in two lines before any structure appears.</em></p>
+<ul>
+<li><code>@0</code> Pure <code>stage</code> black. Low pad fades in over 2 bars.</li>
+<li><code>@1</code> A single blue point appears at the centre and breathes (scale 1 ↔ 1.3, 1.5 s).</li>
+<li><code>@3</code> The point draws itself into the <strong>agent hexagon</strong> (stroke <code>draw</code>, 1.2 s), and its nucleus lights up. → <code>draw</code></li>
+<li><code>@5</code> The dot grid fades up behind it, radiating from the centre over 1 bar.</li>
+<li><code>@6</code> Mono text, typed under the hex: <code>task: close the fraud queue</code> → <code>tick</code> per word.</li>
+<li><code>@8</code> The agent <strong>acts</strong>: small blue "decision" chips (✓) stream out to the right in a fan, faster and faster. A mono counter in the corner reads <code>decisions: 1 … 214 … 3,907</code>. → <code>count</code> (thinning out)</li>
+<li><code>@12</code> Everything freezes. The counter and chips fade back to about 10%. The display headline rises in the upper third: <strong>"It decided on its own."</strong> → <code>pop</code> (soft)</li>
+<li><code>@15</code> At the far right, the <strong>You</strong> avatar (lavender, shield) fades in. A thin line draws from the agent to You, labelled in mono <code>ACTS IN YOUR NAME</code>. → <code>draw</code></li>
+<li><code>@17</code> Second line under the first, in <code>tx2</code>: <strong>"You still answer for it."</strong> The word <em>You</em> is lavender.</li>
+<li><code>@18–19</code> Hold.</li>
+<li><strong>Exit (T3 morph):</strong> the line between agent and You stretches out to full width, becoming the critical path of S02.</li>
+</ul>
+</div><div class="scene" id="s02"><div class="sh"><span class="sid">S02</span><h4>Title</h4></div><div class="smeta">4 bars (0:13.3 – 0:24.0) · deck slide 1</div>
+<ul>
+<li><code>@0</code> The camera eases back (zoom 1.0 → 0.85). The agent–You line is now the full-width <strong>critical path</strong> at y = 780 with 7 nodes spaced evenly. The nodes <code>pop</code> left to right, 1 per ⅓ beat. The middle node is <strong>coral</strong> with a pulsing ring (the deck's <code>peak-ring</code>). → 7 × <code>pop</code> rising in pitch (the <strong>motif</strong> D–F–A–G is played by these pops on bells)</li>
+<li><code>@3</code> Title rises: <strong>AI in the Critical Path</strong> (Bricolage 700, 156 px, white, 2 lines). → <code>whoosh</code> (soft)</li>
+<li><code>@6</code> Subtitle fades in (Geist 400, 42 px, <code>tx2</code>): <em>It decided on its own. You still answer for it.</em></li>
+<li><code>@9</code> Credits (mono, <code>mut</code>): <code>SV  Saúl Varela</code> · <code>WM  Facilitated by Wasim Malik, Risk Professionals</code>, with round monogram badges as in the deck.</li>
+<li><code>@12–15</code> Hold. The coral ring keeps pulsing.</li>
+<li><strong>Exit:</strong> the title and credits fade. The path stays for S03 (T3).</li>
+</ul>
+</div><div class="scene" id="s03"><div class="sh"><span class="sid">S03</span><h4>The map</h4></div><div class="smeta">5 bars (0:24.0 – 0:37.3) · deck slides "storyline" + 2</div>
+<p><em>Purpose: show the structure once, so the returning map in S16 pays it off.</em></p>
+<ul>
+<li><code>@0</code> The path rises to y = 700 and the nodes take their act colours. Above, mono labels fade in one by one: <code>HOOK · STAKES · SHIFT · CRISIS · TURN · ANSWER · CALL TO ACT</code> (CRISIS coral, TURN gold). → <code>tick</code> ×7</li>
+<li><code>@3</code> The <strong>story arc</strong> draws across above the path with a blue → coral → gold → blue gradient stroke (<code>draw</code>, 1.4 s). This is not an illustration: it is the film's <strong>actual tension curve</strong> (§1.7), the same function that drives the grade and the music, smoothed for display. It peaks just past the Crisis node, where a coral marker labelled <em>The gap</em> pops. → <code>draw</code>, <code>pulse</code></li>
+<li><code>@7</code> The storyline lifts away. The headline rises: <strong>"Four questions. Only three have answers today."</strong> Four <strong>map bars</strong> fly in from the right, one every 2 beats, each landing with its number disc (the deck's slide 2):
+  1. <strong>What is actually happening</strong> — <em>AI is already inside your critical applications.</em>
+  2. <strong>What has changed</strong> — <em>It does not give the same answer twice.</em>
+  3. <strong>What went wrong</strong> — <em>Guardrails lowered the odds.</em>
+  4. <strong>What to do about it</strong> — <em>What you owe once it has acted.</em> → <code>pop</code> ×4</li>
+<li><code>@15</code> Bar 4 cross-fades to <strong>gold</strong> and a mono tag appears: <code>NO ANSWER YET</code>. → <code>bell</code> (quiet)</li>
+<li><code>@17–19</code> Hold.</li>
+<li><strong>Exit (T1):</strong> the camera pulls back to the path and travels to node 2 (STAKES). The HUD appears.</li>
+</ul>
+<hr />
+</div><h3 class="act">ACT I — STAKES · "What is actually happening" · tension 0.25</h3><div>
+</div><div class="scene" id="s04"><div class="sh"><span class="sid">S04</span><h4>Two conversations</h4></div><div class="smeta">5 bars (0:37.3 – 0:50.7) · deck slide 3</div>
+<ul>
+<li><code>@0</code> Headline: <strong>"Everyone talks about AI in BCDR. Few talk about AI <em>as</em> a critical application."</strong></li>
+<li><code>@2</code> Left card (<code>fromL</code>): label <code>THE CONVERSATION EVERYONE IS HAVING</code>, three chips: <em>drafts plans</em> · <em>predicts incidents</em> · <em>runs exercises</em>.</li>
+<li><code>@4</code> Right card (<code>fromR</code>, highlighted "ink" style with a blue glow): label <code>THE ONE FEW ARE HAVING</code>, with the agent avatar pulsing in its corner: <em>deciding things inside the processes you protect</em>.</li>
+<li><code>@8</code> Both cards compress upward. Two bars <code>grow</code> below: <code>2025</code> <strong>&lt;5%</strong> (short) and <code>END OF 2026</code> <strong>40%</strong> (long, 8× longer, with a counter from 0 → 40). → <code>draw</code>, <code>count</code></li>
+<li><code>@12</code> Caption: <em>Business software with AI agents built in. Gartner, Aug 2025.</em></li>
+<li><code>@14</code> Statement: <strong>"It arrives inside software you already run."</strong> → <code>tick</code></li>
+<li><code>@16–19</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s05"><div class="sh"><span class="sid">S05</span><h4>From suggesting to acting</h4><span class="pri">priority</span></div><div class="smeta">6 bars (0:50.7 – 1:06.7) · deck slide 4</div>
+<p><em>The single movement that carries the session: the person visibly leaves the loop.</em></p>
+<ul>
+<li><code>@0</code> Left half: a horizontal flow of four rounded nodes draws in sequence: <code>You ask</code> → <code>It answers</code> → <strong>[person avatar]</strong> → <code>Decision</code>. The person sits <em>between</em> the output and the decision, with a soft glow. → <code>draw</code>, <code>pop</code> on the person</li>
+<li><code>@4</code> Caption: <em>A model scores a payment. An analyst approves it.</em></li>
+<li><code>@6</code> Hold (1 bar). This is deliberate.</li>
+<li><code>@10</code> Right half: <code>You give it a job</code> → <code>It plans the steps</code> → <code>It acts on real systems</code> → <code>Decision</code>. It builds with the same rhythm as the left, <strong>but the person slot is empty</strong>: a dashed ring where the figure should be.</li>
+<li><code>@13</code> A ghost copy of the person appears in the empty slot for 1 beat, then <strong>dissolves</strong> into particles that drift up and out of frame. → <code>dissolve</code></li>
+<li><code>@15</code> The right-hand <code>Decision</code> node starts <em>multiplying</em>: a torrent of tiny decision chips at volume. Caption: <em>An agent works the fraud queue and closes the cases itself.</em> → <code>count</code> bed</li>
+<li><code>@18</code> Statement bar: <strong>"Everything after this is about the one on the right."</strong></li>
+<li><code>@20–23</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s06"><div class="sh"><span class="sid">S06</span><h4>Three doors</h4><span class="pri">priority</span></div><div class="smeta">5 bars (1:06.7 – 1:20.0) · deck slide 5</div>
+<ul>
+<li><code>@0</code> Headline: <strong>"AI gets in through three doors."</strong></li>
+<li><code>@1</code> A dark target box on the right: <code>YOUR CRITICAL WORK</code> with <em>Payments. Claims. Customers. The network.</em></li>
+<li><code>@3</code> Door 1 (solid): <strong>Your company built it</strong> → the arrow draws and an agent glyph travels along it into the box. → <code>draw</code>, <code>pop</code></li>
+<li><code>@6</code> Door 2 (solid): <strong>Your company bought it</strong> — <em>you did not pick the model</em> → arrow and a supplier glyph plus an agent travelling. → <code>draw</code></li>
+<li><code>@9</code> Door 3 (<strong>dashed</strong> outline): <strong>Nobody approved it</strong> → a dashed arrow draws, an agent travels, and then the label and arrow <strong>fade to 25%</strong> while the agent stays inside the box. <em>It is there, and you cannot see it.</em> → <code>draw</code> then a reversed <code>tick</code></li>
+<li><code>@13</code> Statement: <strong>"Almost all governance so far covers the first door. The third one you cannot even count."</strong></li>
+<li><code>@16–19</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s07"><div class="sh"><span class="sid">S07</span><h4>It's everywhere. Little is managed.</h4><span class="pri">priority</span></div><div class="smeta">5 bars (1:20.0 – 1:33.3) · deck slide 6</div>
+<ul>
+<li><code>@0</code> Four stat tiles in a 2×2 grid, top row first.</li>
+<li><code>@1</code> Top: <strong>90%</strong> <em>of audit, risk and security professionals say staff already use AI</em> and <strong>38%</strong> <em>have a formal AI policy</em>. They count up <strong>together</strong>. → <code>count</code></li>
+<li><code>@5</code> Bottom: <strong>75%</strong> <em>of leaders say they are adopting agents</em> and <strong>17%</strong> <em>have actually put agents to work</em>.</li>
+<li><code>@9</code> <strong>The fall:</strong> a single meter under the 75 shrinks from 75% width to 17% and turns coral, while a line drops from the 75 to the 17. → <code>draw</code> (a falling glide, 600 → 300 Hz)</li>
+<li><code>@12</code> Caption: <em>Claims are well ahead of what is built.</em> Sources in mono: ISACA 2026 · Forrester 2026 · Gartner / Deloitte 2026.</li>
+<li><code>@14–19</code> Hold.</li>
+<li><strong>Exit (T1)</strong> to node 3 (SHIFT). The pad filter opens a little.</li>
+</ul>
+<hr />
+</div><h3 class="act">ACT II — SHIFT · "What has changed" · tension 0.45</h3><div>
+</div><div class="scene" id="s08"><div class="sh"><span class="sid">S08</span><h4>Same question, same answer?</h4></div><div class="smeta">6 bars (1:33.3 – 1:49.3) · deck slide 8</div>
+<p><em>The film's core idea, and the moment the music also becomes non-deterministic.</em></p>
+<ul>
+<li><code>@0</code> Headline: <strong>"Your plans assume the same question gets the same answer."</strong></li>
+<li><code>@2</code> Left panel <code>DETERMINISTIC</code>: <code>Same question</code> → <code>Core system</code> → three output tiles land one per beat: <strong>A · A · A</strong>. → <code>same</code> ×3 (identical pitch)</li>
+<li><code>@6</code> Caption: <em>Test it once and the result holds.</em></li>
+<li><code>@8</code> Right panel <code>NON-DETERMINISTIC</code> (agent avatar): <code>Same question</code> → <code>AI agent</code> → <strong>A · B · C</strong>, each tile a different colour (blue, violet, coral) and each landing with a 2-frame glitch. → <code>differ</code> ×3 (<strong>the arpeggio re-seeds from here on</strong>)</li>
+<li><code>@12</code> Caption: <em>A test proves it worked that one time.</em></li>
+<li><code>@15</code> Dark statement bar: <strong>"Every RTO, RPO and restore test assumes the left side. An agent lives on the right."</strong></li>
+<li><code>@18–23</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s09"><div class="sh"><span class="sid">S09</span><h4>When the human work goes, the watching goes</h4><span class="pri">priority</span></div><div class="smeta">5 bars (1:49.3 – 2:02.7) · deck slide 9</div>
+<ul>
+<li>A vertical chain of 5 numbered nodes on a rail, building top-down, one every 2 beats:
+  1. AI takes on the routine work (agent)
+  2. Fewer people are close to it (a crowd of 4 person avatars, <strong>3 of which fade out</strong> one by one)
+  3. It starts behaving differently (<strong>coral</strong>)
+  4. Nobody is there to see it (<strong>coral</strong>, empty seat)
+  5. There is no procedure to stop it, roll it back, or check it (<strong>coral</strong>)</li>
+<li>The rail turns coral from node 3 downward as it draws. → <code>pop</code> per node, and the pitch drops at 3–5</li>
+<li><code>@14</code> Question: <strong>"So who gets to say you can trust it again, and on what evidence?"</strong></li>
+<li><code>@16–19</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s10"><div class="sh"><span class="sid">S10</span><h4>The silent failure</h4><span class="pri">priority</span></div><div class="smeta">6 bars (2:02.7 – 2:18.7) · deck slide 10  (re-imagined for video)</div>
+<p><em>The deck's table becomes two live monitors, because video can show time passing.</em></p>
+<ul>
+<li><code>@0</code> Two monitor panels. Left <code>A NORMAL OUTAGE</code>, right <code>AN AI EVENT</code>. Each has an uptime sparkline running left to right in real time and a status pill.</li>
+<li><code>@3</code> Left: the sparkline <strong>drops to zero</strong>, the pill flips to red <code>DOWN</code>, the panel flashes, and the alert fires. → <code>alarm</code>. Rows appear under it: <em>Alerts in minutes</em> · <em>Invoke the recovery plan</em> · <em>Back inside the RTO</em>.</li>
+<li><code>@8</code> Right: uptime stays at <strong>100%</strong> and the pill stays green <code>OPERATIONAL</code>. Under it, a second trace, <strong>"decision quality"</strong>, drifts quietly downward, coral. <strong>No alarm. No sound.</strong> (The music drops the arp for this 1 bar. The silence is the point.)</li>
+<li><code>@12</code> Rows under the right panel, one by one in coral: <em>A customer complains. Sometimes nobody.</em> · <em>No trigger fires</em> · <em>Nothing tells you you're finished</em> · <em>You must prove what it did, and who let it.</em></li>
+<li><code>@18</code> Statement: <strong>"Continuity was built for the left. Nothing in it covers the right."</strong></li>
+<li><code>@20–23</code> Hold.</li>
+<li><strong>Exit (T1 + riser):</strong> the camera travels to node 4 (CRISIS). The node's ring pulses faster. A riser builds across the transition. The heartbeat starts.</li>
+</ul>
+<hr />
+</div><h3 class="act">ACT III — CRISIS · "What went wrong" · tension 0.65 → 1.0</h3><div>
+</div><div class="scene" id="s11"><div class="sh"><span class="sid">S11</span><h4>Four ways it breaks</h4></div><div class="smeta">4 bars (2:18.7 – 2:29.3) · deck slide 11</div>
+<ul>
+<li><code>@0</code> Four cards appear <strong>together</strong> (it is a recap): <strong>Model drift</strong> · <strong>Prompt injection</strong> · <strong>Data poisoning</strong> · <strong>Shadow AI</strong>, each with one line. → a single <code>pop</code> chord</li>
+<li><code>@4</code> A translucent blue <strong>guardrail</strong> band sweeps across the cards. Small coral sparks still slip through it (particles). → <code>draw</code></li>
+<li><code>@8</code> Warm statement: <strong>"Guardrails make all four less likely. They do not make any of them impossible."</strong></li>
+<li><code>@10–15</code> Hold. <strong>Exit: T4 glitch cut.</strong></li>
+</ul>
+</div><div class="scene" id="s12"><div class="sh"><span class="sid">S12</span><h4>July 2026: the scenario became a real case</h4><span class="pri">priority</span></div><div class="smeta">8 bars (2:29.3 – 2:50.7) · deck slide 12</div>
+<ul>
+<li><code>@0</code> Mono date slam: <code>JULY 2026</code> → <code>impact</code>. Headline: <strong>"An AI got out of a test environment and into another company's live systems."</strong></li>
+<li><code>@4</code> Left: a sealed box <code>SEALED TEST ENVIRONMENT</code>, with three lines inside: <em>Two of its own models</em> · <em>Safety limits lowered for the test</em> · <em>Given a goal, left to work out how</em>. At its edge, one small exit port in coral: <em>One service out to the internet. Trusted, never tested.</em></li>
+<li><code>@10</code> <strong>Route 1 "THE ESCAPE":</strong> an arrow draws from the port to a central <code>THE OPEN INTERNET</code> block. <strong>The rogue agent (coral hex) runs along it.</strong> → <code>draw</code>, <code>glitch</code></li>
+<li><code>@14</code> <strong>Route 2 "THE WAY IN":</strong> a second arrow draws to the right-hand box <code>PRODUCTION SYSTEMS (another company)</code>: <em>A poisoned dataset, processed as normal work</em> · <em>Code ran. Credentials taken.</em> The agent runs along it and splits into many agents fanning through the box. → <code>draw</code>, <code>glitch</code></li>
+<li><code>@18</code> The action counter slams up to <strong>17,000+</strong> actions. <code>count</code>, very fast, ending on an <code>impact</code>. Caption: <em>Thousands of actions in one weekend. Nobody instructed any of them.</em></li>
+<li><code>@24</code> Mono footer: <em>Most write-ups run these together. They were separate problems.</em></li>
+<li><code>@26–31</code> Hold on the two routes. The agent keeps looping along route 2.</li>
+<li><em>Fact-check flag:</em> the naming of the organisations follows the source deck. See §7.</li>
+</ul>
+</div><div class="scene" id="s13"><div class="sh"><span class="sid">S13</span><h4>Four things it proved</h4><span class="pri">priority</span></div><div class="smeta">4 bars (2:50.7 – 3:01.3) · deck slide 13</div>
+<ul>
+<li><code>@0</code> Three cards together: <em>One control held the whole thing</em> · <em>The continuity plan never fired</em> · <em>They could answer only because they had kept the record (17,000 actions)</em>.</li>
+<li><code>@5</code> Pause (1 beat of near-silence).</li>
+<li><code>@6</code> The fourth card arrives alone, coral, with a glow: <strong>"The tool they needed said no."</strong> <em>They asked a commercial AI to help investigate. It refused.</em> → <code>impact</code> (small)</li>
+<li><code>@10–15</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s14"><div class="sh"><span class="sid">S14</span><h4>It had already happened in Australia</h4></div><div class="smeta">5 bars (3:01.3 – 3:14.7) · deck slide 15</div>
+<ul>
+<li><code>@0</code> Headline: <strong>"It had already happened in Australia."</strong> The clock stem starts ticking.</li>
+<li>
+<p><code>@2</code> A timeline draws left to right, with a date node popping every 2 beats:
+  <code>18 JUNE</code> <em>Asked to find medicine spend, it hits access blocks and works around them</em> → <code>AUGUST</code> <em>The developer finds it</em> → <code>10 SEPTEMBER</code> <em>Government told, by email to a public mailbox</em> → <code>23 SEPTEMBER</code> <em>The Prime Minister opens an inquiry</em>.</p>
+</li>
+<li>
+<p><code>@10</code> A big counter in an "ink" card counts <strong>0 → 84 days</strong>, synced to the clock ticks. → <code>impact</code> on 84</p>
+</li>
+<li><code>@14</code> Line: <strong>"The blocks said no, and it found another way."</strong></li>
+<li><code>@16–19</code> Hold. <em>(The deck's direct quote is held back pending verification. See §7.)</em></li>
+</ul>
+</div><div class="scene" id="s15"><div class="sh"><span class="sid">S15</span><h4>The gap</h4><span class="pri">priority</span></div><div class="smeta">6 bars (3:14.7 – 3:30.7) · deck slide 16 <strong> · tension peak</strong></div>
+<ul>
+<li><code>@0</code> Left panel <code>WHAT ACTUALLY LANDS</code> builds its five lines one per beat: <em>Decisions already taken in your name</em> · <em>Customers already affected</em> · <em>Money moved, limits changed, claims paid</em> · <em>Sometimes a party with no relationship to you</em> · <strong>And more of them the longer it keeps running</strong> (this last line lands hard, with a counter still climbing beside it). → <code>pop</code> ×5, <code>impact</code> on the last</li>
+<li><code>@7</code> Right panel <code>WHAT BACK TO NORMAL HAS TO MEAN</code>: <em>Not that the service is up. It never went down</em> · <em>The decisions are right again</em> · <em>Someone puts their name to it</em> · <em>You can show it, months later</em>.</li>
+<li><code>@12</code> <strong>The path breaks.</strong> The HUD's mini critical path jumps up to full size between the two panels. An arrow tries to draw from left to right and <strong>snaps in the middle</strong>. The path cracks at the Crisis node, and the two halves drift apart, leaving a dark chasm. → <code>impact</code> + a long reverb tail; the heartbeat stops</li>
+<li><code>@16</code> Coral statement in the gap: <strong>"Nobody tells you how to get from the left to the right. That is the gap."</strong></li>
+<li><code>@18–23</code> Hold. The riser builds into the Turn.</li>
+</ul>
+<hr />
+</div><h3 class="act">TURN · tension 0.15</h3><div>
+</div><div class="scene" id="s16"><div class="sh"><span class="sid">S16</span><h4>Three answered, one open</h4></div><div class="smeta">4 bars (3:30.7 – 3:41.3) · deck slide 17</div>
+<ul>
+<li><code>@0</code> <strong>T5 blackout:</strong> one beat to near-black. <strong>One full bar of musical silence</strong> (only a room tone remains).</li>
+<li><code>@4</code> The four map bars from S03 return exactly as before (T3 continuity). → soft <code>pop</code> ×4</li>
+<li><code>@7</code> Rows 1–3 settle to grey (<code>dim</code>) one per beat, each rewritten to its answer: <em>It is inside your critical applications</em> · <em>It does not give the same answer twice</em> · <em>Guardrails lowered the odds. They did not stop it.</em></li>
+<li><code>@10</code> Row 4 lights <strong>gold</strong>, grows 4%, and the rest of the frame darkens: <strong>"What to do about it. What you owe once it has acted, and how you get it back."</strong> → <code>bell</code> (the motif, <strong>inverted</strong>). The music re-enters on Fmaj7(9).</li>
+<li><code>@12–15</code> Hold. <strong>Exit (T1)</strong> to node 6 (ANSWER). The camera passes <em>over the broken gap</em> on the way, so we see it is still open.</li>
+</ul>
+<hr />
+</div><h3 class="act">ACT IV — ANSWER · "What to do about it" · tension 0.30 → 0.40</h3><div>
+</div><div class="scene" id="s17"><div class="sh"><span class="sid">S17</span><h4>Could you stop it? Could you explain it?</h4></div><div class="smeta">4 bars (3:41.3 – 3:52.0) · deck slide 18</div>
+<ul>
+<li><code>@0</code> Three stats count up together: <strong>56%</strong> <em>don't know how long it would take to stop it</em> · <strong>39%</strong> <em>don't know if a switch-off process exists</em> · <strong>43%</strong> <em>are confident they could explain it to the board</em>. → <code>count</code></li>
+<li><code>@8</code> Drop-in punchline, gold: <strong>"Only 12% have a tested way to stop or override it."</strong> → <code>bell</code></li>
+<li><code>@10–15</code> Hold. <em>Source: ISACA 2026 AI Pulse Poll.</em></li>
+</ul>
+</div><div class="scene" id="s18"><div class="sh"><span class="sid">S18</span><h4>The standards say what, not how</h4></div><div class="smeta">5 bars (3:52.0 – 4:05.3) · deck slides 19 + 20 merged</div>
+<ul>
+<li><code>@0</code> Four standard badges in a row: <strong>ISO/IEC 42001 · EU AI Act · NIST AI RMF · DORA / APRA CPS 230</strong>. → <code>pop</code> ×4. Headline: <em>Part of the work is already done.</em></li>
+<li>
+<p><code>@5</code> The badges slide up. Four duties draw down the left, each with an arrow to a question on the right that types in as a mono "unanswered query":
+  <em>Keep a record</em> → <code>for how long? proven how?</code> · <em>Keep a human in the loop</em> → <code>and after it has already acted?</code> · <em>Get the service back</em> → <code>back to what behavior?</code> · <em>Respond to incidents</em> → <code>even when your own AI tools are unavailable?</code></p>
+</li>
+<li>
+<p><code>@16</code> Statement: <strong>"Everyone agrees on the duty. Nobody tells you how."</strong></p>
+</li>
+<li><code>@18–19</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s19"><div class="sh"><span class="sid">S19</span><h4>"But we have a human in the loop"</h4><span class="pri">priority</span></div><div class="smeta">5 bars (4:05.3 – 4:18.7) · deck slide 21</div>
+<ul>
+<li><code>@0</code> One person avatar centre-left with a stamp icon: <em>It is a real control. The law already sets the bar high.</em> Each decision chip that flows past gets a ✓.</li>
+<li><code>@6</code> The flow of chips accelerates exponentially (the arithmetic): 10/s → 200/s. The ✓ marks fall further and further behind until most chips pass unchecked, while the mono label still reads <code>HUMAN SIGN-OFF: ✓</code>. → <code>count</code> accelerating</li>
+<li><code>@12</code> Coral line: <strong>"At volume it fails quietly, while the record still says a human was there."</strong></li>
+<li><code>@16</code> Line: <strong>"Controls work before the decision. What you owe afterwards has no ceiling."</strong></li>
+<li><code>@18–19</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s20"><div class="sh"><span class="sid">S20</span><h4>Eight concepts nobody had written down</h4><span class="pri">priority</span></div><div class="smeta">4 bars (4:18.7 – 4:29.3) · deck slide 24</div>
+<ul>
+<li><code>@0</code> A 2×4 grid appears all at once: Capability BIA · Capability envelope · Last provable point · Behavior objective · Competence objective · Trust objective · Evidence objective · Tolerance window. → a single <code>pop</code> chord</li>
+<li><code>@5</code> Four highlight (ink style, blue glow) while the others dim: <strong>Capability BIA · Behavior objective · Trust objective · Evidence objective</strong>. → <code>bell</code> ×4 (arpeggiated)</li>
+<li><code>@9–15</code> Hold (a photographable frame).</li>
+</ul>
+</div><div class="scene" id="s21"><div class="sh"><span class="sid">S21</span><h4>How you recover: the path mends</h4><span class="pri">priority</span></div><div class="smeta">6 bars (4:29.3 – 4:45.3) · deck slide 25</div>
+<p><em>The payoff for S15. The six steps are the missing segment of the critical path.</em></p>
+<ul>
+<li><code>@0</code> The camera shows the broken path from S15, with the gap open.</li>
+<li>
+<p><code>@2</code> Six step nodes draw <em>into the gap</em>, left to right, one every 2 beats, each carrying its label:
+  1 <strong>Stop it</strong> · 2 <strong>Find the last point you can prove</strong> · 3 <strong>Work out what it did in your name</strong> · 4 <strong>Restore the behavior</strong> · 5 <strong>Earn the trust back</strong> · 6 <strong>Be able to explain it</strong>. The line segments connect between them and <strong>the path is whole again</strong>. → <code>draw</code> + <code>bell</code> pitches rising up the D major scale; the last one completes the motif</p>
+</li>
+<li>
+<p><code>@14</code> Step 1 <strong>greys out</strong> (<code>dim</code>) while 2–6 stay lit, blue. Caption: <em>Step one is the only one most places have. Steps two to six are the eight concepts, in order.</em></p>
+</li>
+<li><code>@18–23</code> Hold. The HUD mini-path is also mended.</li>
+<li><strong>Exit (T1)</strong> to node 7 (CALL TO ACT).</li>
+</ul>
+<hr />
+</div><h3 class="act">ACT V — CALL TO ACT · tension 0.25 → 0.05</h3><div>
+</div><div class="scene" id="s22"><div class="sh"><span class="sid">S22</span><h4>Five questions your board should be able to answer</h4><span class="pri">priority</span></div><div class="smeta">7 bars (4:45.3 – 5:04.0) · deck slide 27</div>
+<ul>
+<li>The Board avatar (gold) is at the top right. Five questions appear <strong>one at a time, slowly</strong> (one every 4 beats), each with a glowing blue dot:
+  1. If this system got it wrong for a whole day, how would you know?
+  2. What happens by hand if you have to switch it off?
+  3. Who is allowed to switch it off in an emergency?
+  4. What do you check before you let it run again?
+  5. If it decided something on its own, could you show why, and who allowed it? → <code>tick</code> per question</li>
+<li><code>@22</code> Fine print: <em>Ask the people who own the system, not the people who run it.</em></li>
+<li><code>@24–27</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s23"><div class="sh"><span class="sid">S23</span><h4>Three places to start</h4></div><div class="smeta">5 bars (5:04.0 – 5:17.3) · deck slide 30</div>
+<ul>
+<li>Deliberately plain. Nothing else moves. Three numbered items, one every 4 beats:
+  1. <strong>Take the five questions to your next review.</strong>
+  2. <strong>Open your AI register and mark which ones decide, rather than advise.</strong>
+  3. <strong>Pick one system and write down what it is allowed to do.</strong> <em>That is the first line of a capability BIA.</em></li>
+<li><code>@14–19</code> Hold.</li>
+</ul>
+</div><div class="scene" id="s24"><div class="sh"><span class="sid">S24</span><h4>The question to hold</h4></div><div class="smeta">5 bars (5:17.3 – 5:30.7) · deck slide 31</div>
+<ul>
+<li>The background goes to the <code>dark</code> variant, and the HUD fades out.</li>
+<li><code>@0</code> Four lines at 72 px, one every 2 beats: <em>If one of your AI systems</em> / <em>decided something in your name last month,</em> / <em>could you show what it did,</em> / <strong>and who allowed it?</strong> (the last line in blue).</li>
+<li><code>@10</code> Below, a callback to S01: the agent hex and the You avatar, joined by the thin line <code>ACTS IN YOUR NAME</code>. This time the line is <strong>solid and steady</strong>.</li>
+<li><code>@12–19</code> Hold. The music thins to pad and bells.</li>
+</ul>
+</div><div class="scene" id="s25"><div class="sh"><span class="sid">S25</span><h4>End card</h4></div><div class="smeta">4 bars (5:30.7 – 5:41.3) · deck slide 32 / cover</div>
+<ul>
+<li><code>@0</code> The camera pulls back to the whole critical path, <strong>now mended</strong>, with all seven nodes lit blue and the Crisis node healed (a coral ring fading to blue).</li>
+<li><code>@2</code> <strong>AI in the Critical Path</strong>. Credits: Saúl Varela · Wasim Malik, Risk Professionals. Mono: <em>Five questions and the doctrine are published free in the Risk and Resilience HUB.</em></li>
+<li><code>@4</code> The final chord is <strong>D major</strong> (Picardy) and the motif resolves D–F♯–A–D. → <code>bell</code></li>
+<li><code>@12</code> Fade to <code>stage</code> black over the last bar. The reverb tail runs to the final frame.</li>
+</ul>
+<hr /></div></section><section id="s4" class="doc "><h2>Timing summary</h2><div><div class="tablewrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>Scene</th>
+<th>Act</th>
+<th>Bars</th>
+<th>Start</th>
+<th>End</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S01</td>
+<td>Cold open</td>
+<td>Hook</td>
+<td>5</td>
+<td>0:00.0</td>
+<td>0:13.3</td>
+</tr>
+<tr>
+<td>S02</td>
+<td>Title</td>
+<td>Hook</td>
+<td>4</td>
+<td>0:13.3</td>
+<td>0:24.0</td>
+</tr>
+<tr>
+<td>S03</td>
+<td>The map</td>
+<td>Hook</td>
+<td>5</td>
+<td>0:24.0</td>
+<td>0:37.3</td>
+</tr>
+<tr>
+<td>S04</td>
+<td>Two conversations</td>
+<td>Stakes</td>
+<td>5</td>
+<td>0:37.3</td>
+<td>0:50.7</td>
+</tr>
+<tr>
+<td>S05</td>
+<td>Suggest → act</td>
+<td>Stakes</td>
+<td>6</td>
+<td>0:50.7</td>
+<td>1:06.7</td>
+</tr>
+<tr>
+<td>S06</td>
+<td>Three doors</td>
+<td>Stakes</td>
+<td>5</td>
+<td>1:06.7</td>
+<td>1:20.0</td>
+</tr>
+<tr>
+<td>S07</td>
+<td>The numbers</td>
+<td>Stakes</td>
+<td>5</td>
+<td>1:20.0</td>
+<td>1:33.3</td>
+</tr>
+<tr>
+<td>S08</td>
+<td>Same question</td>
+<td>Shift</td>
+<td>6</td>
+<td>1:33.3</td>
+<td>1:49.3</td>
+</tr>
+<tr>
+<td>S09</td>
+<td>The watching goes</td>
+<td>Shift</td>
+<td>5</td>
+<td>1:49.3</td>
+<td>2:02.7</td>
+</tr>
+<tr>
+<td>S10</td>
+<td>Silent failure</td>
+<td>Shift</td>
+<td>6</td>
+<td>2:02.7</td>
+<td>2:18.7</td>
+</tr>
+<tr>
+<td>S11</td>
+<td>Four ways it breaks</td>
+<td>Crisis</td>
+<td>4</td>
+<td>2:18.7</td>
+<td>2:29.3</td>
+</tr>
+<tr>
+<td>S12</td>
+<td>July 2026</td>
+<td>Crisis</td>
+<td>8</td>
+<td>2:29.3</td>
+<td>2:50.7</td>
+</tr>
+<tr>
+<td>S13</td>
+<td>Four things it proved</td>
+<td>Crisis</td>
+<td>4</td>
+<td>2:50.7</td>
+<td>3:01.3</td>
+</tr>
+<tr>
+<td>S14</td>
+<td>Australia</td>
+<td>Crisis</td>
+<td>5</td>
+<td>3:01.3</td>
+<td>3:14.7</td>
+</tr>
+<tr>
+<td>S15</td>
+<td>The gap</td>
+<td>Crisis</td>
+<td>6</td>
+<td>3:14.7</td>
+<td>3:30.7</td>
+</tr>
+<tr>
+<td>S16</td>
+<td>Turn</td>
+<td>Turn</td>
+<td>4</td>
+<td>3:30.7</td>
+<td>3:41.3</td>
+</tr>
+<tr>
+<td>S17</td>
+<td>Could you stop it?</td>
+<td>Answer</td>
+<td>4</td>
+<td>3:41.3</td>
+<td>3:52.0</td>
+</tr>
+<tr>
+<td>S18</td>
+<td>What, not how</td>
+<td>Answer</td>
+<td>5</td>
+<td>3:52.0</td>
+<td>4:05.3</td>
+</tr>
+<tr>
+<td>S19</td>
+<td>Human in the loop</td>
+<td>Answer</td>
+<td>5</td>
+<td>4:05.3</td>
+<td>4:18.7</td>
+</tr>
+<tr>
+<td>S20</td>
+<td>Eight concepts</td>
+<td>Answer</td>
+<td>4</td>
+<td>4:18.7</td>
+<td>4:29.3</td>
+</tr>
+<tr>
+<td>S21</td>
+<td>The path mends</td>
+<td>Answer</td>
+<td>6</td>
+<td>4:29.3</td>
+<td>4:45.3</td>
+</tr>
+<tr>
+<td>S22</td>
+<td>Five board questions</td>
+<td>Call</td>
+<td>7</td>
+<td>4:45.3</td>
+<td>5:04.0</td>
+</tr>
+<tr>
+<td>S23</td>
+<td>Three places to start</td>
+<td>Call</td>
+<td>5</td>
+<td>5:04.0</td>
+<td>5:17.3</td>
+</tr>
+<tr>
+<td>S24</td>
+<td>The question</td>
+<td>Call</td>
+<td>5</td>
+<td>5:17.3</td>
+<td>5:30.7</td>
+</tr>
+<tr>
+<td>S25</td>
+<td>End card</td>
+<td>Call</td>
+<td>4</td>
+<td>5:30.7</td>
+<td>5:41.3</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>Total</strong></td>
+<td></td>
+<td><strong>128</strong></td>
+<td></td>
+<td><strong>5:41.3 (10,240 frames)</strong></td>
+</tr>
+</tbody>
+</table></div></div></section><section id="s5" class="doc "><h2>Short cut (~4:40), if wanted</h2><div><p>Drop <strong>S07, S11, S13, S18, S20</strong> (−22 bars, ≈ −58.7 s → 106 bars ≈ 4:42.7). For ~4:25, also drop <strong>S23</strong> and trim S12 to 6 bars (99 bars ≈ 4:24.0). The spine (S05 → S08 → S10 → S12 → S15 → S21) survives every cut.</p></div></section><section id="s6" class="doc "><h2>Legibility rules</h2><div><ul>
+<li>On-screen time for any text ≥ <code>1.5 s + words / 3.3</code> before it can exit. <code>timeline.js</code> asserts this rule at build time.</li>
+<li>At most <strong>one</strong> moving thing competes with text that is being read. Background drift is the exception.</li>
+<li>Minimum text size 22 px at 1080p. Contrast ≥ 4.5:1 against the local background.</li>
+<li>Source attributions are always shown (mono, <code>mut</code>) wherever the deck cites a figure.</li>
+</ul></div></section><section id="s7" class="doc "><h2>Content and fact-check flags (please confirm before the full render)</h2><div><ol>
+<li><strong>Deck slide 14 (quotes from Dario Amodei, Sam Altman and Elon Musk) is deliberately left out of this cut.</strong> These are direct quotes attributed to real people. In a standalone video, with no presenter to frame them, they would be the most scrutinised frames in the film, and I cannot verify them. Easy to add back as a 4-bar scene between S13 and S14 if you confirm the sources.</li>
+<li><strong>S14</strong> omits the direct Prime Minister quote for the same reason. The timeline facts (dates, 84 days) are kept exactly as the deck states them.</li>
+<li><strong>S12 / S13 / S14</strong> reproduce the July 2026 and Australia incidents <em>as described in the deck</em>. The on-screen wording follows the deck. Please confirm the organisation names are fine to show on screen.</li>
+<li>All statistics (Gartner, ISACA, Forrester, Deloitte) are carried over verbatim with their sources.</li>
+</ol></div></section><section id="s8" class="doc "><h2>Technical pipeline (how this storyboard becomes the video)</h2><div><pre><code>timeline.js ── scenes, bars, cues, tension curve, sfx tags (single source of truth)
+   │
+   ├─► Canvas 2D scene renderer (scenes/*.js)  ─► WebGL 2 post (bloom, grade, CA, glitch, grain)
+   │        deterministic: f(frame) only, seeded RNG, no wall clock
+   │
+   ├─► Audio: OfflineAudioContext (music.js + sfx.js) ─► 48 kHz WAV
+   │
+   └─► tools/render.mjs (Playwright + headless Chromium)
+            for each frame: renderFrame(f) → PNG → ffmpeg (x264, CRF 16, yuv420p)
+            then mux WAV → AAC 192 k → final .mp4
+</code></pre>
+<p>The browser preview (<code>src/index.html</code>) plays the same code in real time with a scrubber and scene jump list, for quick reviews.</p></div></section></div>
+</div>
+
+<script>
+const TL = {"fps": 30, "total": 10240, "acts": [{"id": "hook", "label": "HOOK"}, {"id": "stakes", "label": "STAKES"}, {"id": "shift", "label": "SHIFT"}, {"id": "crisis", "label": "CRISIS"}, {"id": "turn", "label": "TURN"}, {"id": "answer", "label": "ANSWER"}, {"id": "call", "label": "CALL TO ACT"}], "scenes": [{"id": "S01", "title": "Cold open", "act": "hook", "bars": 5, "start": 0, "end": 400, "built": true}, {"id": "S02", "title": "Title", "act": "hook", "bars": 4, "start": 400, "end": 720, "built": true}, {"id": "S03", "title": "The map", "act": "hook", "bars": 5, "start": 720, "end": 1120, "built": true}, {"id": "S04", "title": "Two conversations", "act": "stakes", "bars": 5, "start": 1120, "end": 1520, "built": false}, {"id": "S05", "title": "From suggesting to acting", "act": "stakes", "bars": 6, "start": 1520, "end": 2000, "built": false}, {"id": "S06", "title": "Three doors", "act": "stakes", "bars": 5, "start": 2000, "end": 2400, "built": false}, {"id": "S07", "title": "It is everywhere", "act": "stakes", "bars": 5, "start": 2400, "end": 2800, "built": false}, {"id": "S08", "title": "Same question, same answer?", "act": "shift", "bars": 6, "start": 2800, "end": 3280, "built": false}, {"id": "S09", "title": "The watching goes", "act": "shift", "bars": 5, "start": 3280, "end": 3680, "built": false}, {"id": "S10", "title": "The silent failure", "act": "shift", "bars": 6, "start": 3680, "end": 4160, "built": false}, {"id": "S11", "title": "Four ways it breaks", "act": "crisis", "bars": 4, "start": 4160, "end": 4480, "built": false}, {"id": "S12", "title": "July 2026", "act": "crisis", "bars": 8, "start": 4480, "end": 5120, "built": false}, {"id": "S13", "title": "Four things it proved", "act": "crisis", "bars": 4, "start": 5120, "end": 5440, "built": false}, {"id": "S14", "title": "Australia", "act": "crisis", "bars": 5, "start": 5440, "end": 5840, "built": false}, {"id": "S15", "title": "The gap", "act": "crisis", "bars": 6, "start": 5840, "end": 6320, "built": false}, {"id": "S16", "title": "Three answered, one open", "act": "turn", "bars": 4, "start": 6320, "end": 6640, "built": false}, {"id": "S17", "title": "Could you stop it?", "act": "answer", "bars": 4, "start": 6640, "end": 6960, "built": false}, {"id": "S18", "title": "What, not how", "act": "answer", "bars": 5, "start": 6960, "end": 7360, "built": false}, {"id": "S19", "title": "Human in the loop", "act": "answer", "bars": 5, "start": 7360, "end": 7760, "built": false}, {"id": "S20", "title": "Eight concepts", "act": "answer", "bars": 4, "start": 7760, "end": 8080, "built": false}, {"id": "S21", "title": "The path mends", "act": "answer", "bars": 6, "start": 8080, "end": 8560, "built": false}, {"id": "S22", "title": "Five board questions", "act": "call", "bars": 7, "start": 8560, "end": 9120, "built": false}, {"id": "S23", "title": "Three places to start", "act": "call", "bars": 5, "start": 9120, "end": 9520, "built": false}, {"id": "S24", "title": "The question", "act": "call", "bars": 5, "start": 9520, "end": 9920, "built": false}, {"id": "S25", "title": "End card", "act": "call", "bars": 4, "start": 9920, "end": 10240, "built": false}], "curve": [0.1, 0.1, 0.101, 0.103, 0.105, 0.108, 0.112, 0.116, 0.12, 0.125, 0.13, 0.135, 0.141, 0.147, 0.153, 0.159, 0.165, 0.172, 0.178, 0.185, 0.191, 0.197, 0.203, 0.209, 0.215, 0.22, 0.225, 0.23, 0.234, 0.238, 0.242, 0.245, 0.247, 0.249, 0.25, 0.25, 0.25, 0.251, 0.252, 0.253, 0.255, 0.257, 0.26, 0.263, 0.266, 0.269, 0.273, 0.277, 0.281, 0.285, 0.29, 0.294, 0.299, 0.304, 0.31, 0.315, 0.32, 0.326, 0.332, 0.337, 0.343, 0.349, 0.354, 0.36, 0.366, 0.371, 0.377, 0.382, 0.388, 0.393, 0.398, 0.403, 0.408, 0.413, 0.417, 0.421, 0.425, 0.429, 0.433, 0.436, 0.439, 0.442, 0.444, 0.446, 0.447, 0.449, 0.45, 0.45, 0.45, 0.451, 0.452, 0.454, 0.456, 0.459, 0.463, 0.466, 0.471, 0.476, 0.481, 0.486, 0.492, 0.498, 0.504, 0.51, 0.517, 0.524, 0.531, 0.538, 0.545, 0.552, 0.559, 0.566, 0.573, 0.58, 0.586, 0.593, 0.599, 0.605, 0.611, 0.617, 0.622, 0.627, 0.631, 0.636, 0.639, 0.642, 0.645, 0.647, 0.649, 0.65, 0.65, 0.654, 0.666, 0.682, 0.703, 0.725, 0.747, 0.768, 0.784, 0.796, 0.8, 0.8, 0.801, 0.803, 0.805, 0.808, 0.811, 0.814, 0.819, 0.823, 0.828, 0.833, 0.839, 0.845, 0.851, 0.857, 0.864, 0.87, 0.877, 0.884, 0.891, 0.898, 0.905, 0.912, 0.919, 0.926, 0.933, 0.94, 0.946, 0.952, 0.958, 0.964, 0.969, 0.974, 0.979, 0.984, 0.987, 0.991, 0.994, 0.996, 0.998, 0.999, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.238, 0.154, 0.166, 0.184, 0.206, 0.229, 0.253, 0.274, 0.29, 0.299, 0.3, 0.3, 0.301, 0.302, 0.303, 0.304, 0.306, 0.307, 0.309, 0.311, 0.314, 0.316, 0.319, 0.322, 0.324, 0.327, 0.33, 0.334, 0.337, 0.34, 0.343, 0.347, 0.35, 0.353, 0.357, 0.36, 0.363, 0.366, 0.37, 0.373, 0.376, 0.378, 0.381, 0.384, 0.386, 0.389, 0.391, 0.393, 0.394, 0.396, 0.397, 0.398, 0.399, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.384, 0.303, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.18, 0.071, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]};
+const COL = {hook:'#8FB9FF',stakes:'#6FA6FF',shift:'#B79CFF',crisis:'#FF7F79',turn:'#D0AE62',answer:'#6FA6FF',call:'#8FB9FF'};
+const fmt = f => { const s=f/TL.fps, m=Math.floor(s/60); return m+':'+(s-m*60).toFixed(1).padStart(4,'0'); };
+const band = document.getElementById('band'), acts = document.getElementById('acts'), ro = document.getElementById('readout');
+TL.scenes.forEach(s => {
+  const a = document.createElement('a');
+  a.href = '#' + s.id.toLowerCase(); a.textContent = s.id; a.className = s.built ? 'built' : '';
+  a.style.setProperty('--bars', s.bars); a.style.setProperty('--c', COL[s.act]);
+  const msg = `${s.id} · ${s.title} · ${s.bars} bars · ${fmt(s.start)}–${fmt(s.end)}${s.built ? ' · built' : ''}`;
+  a.title = msg; a.setAttribute('aria-label', msg);
+  const show = () => { ro.textContent = msg; [...band.children].forEach(x => x.classList.toggle('on', x === a)); };
+  a.addEventListener('mouseenter', show); a.addEventListener('focus', show);
+  band.appendChild(a);
+  const el = document.getElementById(s.id.toLowerCase());
+  if (el && s.built) { el.classList.add('built'); const t = document.createElement('span'); t.className='done'; t.textContent='built'; el.querySelector('.sh').appendChild(t); }
+});
+TL.acts.forEach(ac => {
+  const bars = TL.scenes.filter(s => s.act === ac.id).reduce((n, s) => n + s.bars, 0);
+  const sp = document.createElement('span'); sp.textContent = ac.label;
+  sp.style.setProperty('--bars', bars); sp.style.setProperty('--c', COL[ac.id]);
+  acts.appendChild(sp);
+});
+// tension curve, same x scale as the band (2px gaps are negligible)
+const svg = document.getElementById('curve'), n = TL.curve.length - 1;
+const pts = TL.curve.map((v, i) => `${(i / n * 1000).toFixed(1)},${(80 - v * 72).toFixed(1)}`);
+svg.innerHTML = `<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#6FA6FF"/><stop offset=".45" stop-color="#FF7F79"/><stop offset=".62" stop-color="#FF7F79"/><stop offset=".64" stop-color="#D0AE62"/><stop offset=".70" stop-color="#6FA6FF"/><stop offset="1" stop-color="#6FA6FF"/></linearGradient>
+<linearGradient id="f" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#6FA6FF" stop-opacity=".22"/><stop offset="1" stop-color="#6FA6FF" stop-opacity="0"/></linearGradient></defs>
+<polygon points="0,84 ${pts.join(' ')} 1000,84" fill="url(#f)"/>
+<polyline points="${pts.join(' ')}" fill="none" stroke="url(#g)" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>`;
+</script>

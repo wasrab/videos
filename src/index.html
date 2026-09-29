@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI in the Critical Path — renderer</title>
+<style>
+  html,body{margin:0;background:#05080E;color:#C5CEDB;font:13px/1.4 system-ui,sans-serif}
+  body.headless canvas{display:block}
+  #wrap{display:grid;grid-template-columns:1fr 280px;height:100vh}
+  #view{display:grid;place-items:center;padding:16px;min-width:0}
+  canvas#out{width:100%;max-width:1600px;aspect-ratio:16/9;height:auto;background:#000;box-shadow:0 30px 80px -30px #000}
+  #ui{display:flex;flex-direction:column;gap:10px;padding:16px;border-left:1px solid #182030;background:#0A0F18;overflow:auto}
+  #ui[hidden]{display:none}
+  #ui button{background:#131A26;border:1px solid #243044;color:#C5CEDB;padding:7px 10px;border-radius:8px;cursor:pointer;text-align:left;font:inherit}
+  #ui button.built{border-left:3px solid #6FA6FF}
+  #ui button.cur{border-color:#D0AE62;color:#D0AE62}
+  #scrub{width:100%}
+  #tc{font:12px ui-monospace,monospace;color:#8FB9FF}
+  #scenes{display:flex;flex-direction:column;gap:4px}
+  .row{display:flex;gap:6px}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div id="view"><canvas id="out"></canvas></div>
+  <div id="ui" hidden>
+    <div class="row"><button id="play">Play</button><button id="aud">Render audio</button></div>
+    <input id="scrub" type="range" min="0" value="0">
+    <div id="tc"></div>
+    <div id="scenes"></div>
+  </div>
+</div>
+<script>if (location.search.includes('headless')) document.body.classList.add('headless');</script>
+<script type="module" src="./main.js"></script>
+</body>
+</html>
